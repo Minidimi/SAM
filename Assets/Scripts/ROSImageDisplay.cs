@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
+using UnityEngine.UI;
 
 public class ROSImageDisplay : MonoBehaviour
 {
     [SerializeField] private string topic;
 
-    private Material material;
+    private RawImage image;
+    private int frameCount = 0;
 
     private void Awake()
     {
-        material = GetComponent<Material>();
+        image = GetComponent<RawImage>();
     }
 
     // Start is called before the first frame update
@@ -29,20 +31,32 @@ public class ROSImageDisplay : MonoBehaviour
 
     private void receiveImage(ImageMsg msg)
     {
+        Debug.Log("Received message");
         byte[] data = msg.data;
         int height = checked((int)msg.height);
         int width = checked((int)msg.width);
         int step = checked((int)msg.step);
 
-        if (!msg.encoding.Equals("rgb8"))
-            throw new System.Exception("Only rgb8 encoding is supported!");
+        Texture2D texture;
 
-        Texture2D texture = applyToTexture(data, width, height);
+        if (msg.encoding.Equals("rgb8"))
+        {
+            texture = applyToTextureRGB8(data, width, height);
+        }
+        else if (msg.encoding.Equals("bgra8"))
+        {
+            texture = applyToTextureBGRA8(data, width, height);
+        }
+        else
+        {
+            Debug.Log(msg.encoding);
+            throw new System.Exception("Only rgb8 and bgra8 encoding is supported!");
+        }
 
-        material.SetTexture("image", texture);
+        image.texture = texture;
     }
 
-    private Texture2D applyToTexture(byte[] data, int width, int height)
+    private Texture2D applyToTextureRGB8(byte[] data, int width, int height)
     {
         Texture2D target = new Texture2D(width, height);
 
@@ -59,6 +73,30 @@ public class ROSImageDisplay : MonoBehaviour
                 target.SetPixel(col, row, color);
             }
         }
+
+        return target;
+    }
+
+    private Texture2D applyToTextureBGRA8(byte[] data, int width, int height)
+    {
+        Texture2D target = new Texture2D(width, height);
+        Color[] pixels = new Color[width * height];
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                int position = row * 4 * width + 4 * col;
+                byte b = data[position];
+                byte g = data[position + 1];
+                byte r = data[position + 2];
+                byte a = data[position + 3];
+
+                Color color = new Color(r / 128.0f, g / 128.0f, b / 128.0f, a / 128.0f);
+                pixels[row * width + col] = color;
+            }
+        }
+
+        target.SetPixels(pixels);
 
         return target;
     }

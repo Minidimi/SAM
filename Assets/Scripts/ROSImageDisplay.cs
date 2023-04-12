@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
 using UnityEngine.UI;
+using System.IO;
 
 public class ROSImageDisplay : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class ROSImageDisplay : MonoBehaviour
         }
 
         image.texture = texture;
+        image.SetNativeSize();
     }
 
     private Texture2D applyToTextureRGB8(byte[] data, int width, int height)
@@ -90,6 +92,9 @@ public class ROSImageDisplay : MonoBehaviour
                 byte g = data[position + 1];
                 byte r = data[position + 2];
                 byte a = data[position + 3];
+
+                if (b != 0 || r != 0 || g != 0 || a != 0)
+                    Debug.Log("Received non-zero data of length" + data.Length);
 
                 Color color = new Color(r / 128.0f, g / 128.0f, b / 128.0f, a / 128.0f);
                 pixels[row * width + col] = color;

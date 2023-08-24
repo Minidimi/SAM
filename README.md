@@ -2,6 +2,7 @@
 This repository contains the Unity project for receiving ROS messages from the SAM robot and visualizing the SPIRIT scene.
 ## Requirements
 + PC with Windows and Unity (Tested with Windows 10 and Unity 2021.3.9f1)
++ Hololens 2
 + Visual Studio (Tested with Visual Studio 2019)
 + [Setup of the Mixed Reality Toolkit in Unity](https://learn.microsoft.com/en-us/training/paths/beginner-hololens-2-tutorials/)
 + [Setup of Unity Robotics Hub in Unity and the on the ROS server](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/ros_unity_integration/setup.md)
@@ -18,6 +19,9 @@ To deploy the application on the hololens follow these steps:
 + Run the script `devel/setup.bash`
 + Set the environment variables for `ROS_IP` and `ROS_MASTER_URI`
 + Run `roslaunch ros_tcp_endpoint endpoint.launch` to launch the endpoint
+## Starting the Hololens
++ First, make sure the Hololens is in the same network as the ROS endpoint.
++ After the application has first been built as mentioned earlier, the application can be started from `all apps`, even if it is not connected to the development PC
 ## Remote Display of the Hololens View
 + To remotely display the view of the Hololens, enter the Hololens IP address in a browser
 + If a warning is shown, choose `advanced`, then `continue despite risk`

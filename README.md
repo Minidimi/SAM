@@ -1,5 +1,5 @@
-# Code for SAM visualization
-Unity code for receiving ROS messages from the SAM robot and visualizing the SPIRIT scene.
+# Unity Project for SAM Visualization
+This repository contains the Unity project for receiving ROS messages from the SAM robot and visualizing the SPIRIT scene.
 ## Requirements
 + PC with Windows and Unity (Tested with Windows 10 and Unity 2021.3.9f1)
 + Visual Studio (Tested with Visual Studio 2019)
@@ -13,7 +13,7 @@ To deploy the application on the hololens follow these steps:
 + In the `Build` folder, select the generated `.sln` file in Visual Studio
 + Specify the Hololens IP adress under the Visual Studio menu item `Debugging` &rarr; `Debugging Properties` &rarr; `Configuration Properties` &rarr; `Debugging` &rarr; `Device name`
 + Make sure the Visual Studio solution is set to `Release` and `ARM64` next to the launch button. When these are set, press the green launch button to launch the application on the Hololens.
-## Starting the ROS server
+## Starting the ROS Server
 + Navigate to the catkin workspace of the ROS TCP Endpoint.
 + Run the script `devel/setup.bash`
 + Set the environment variables for `ROS_IP` and `ROS_MASTER_URI`

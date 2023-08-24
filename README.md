@@ -15,9 +15,9 @@ To deploy the application on the hololens follow these steps:
 + Make sure the Visual Studio solution is set to Release and ARM64 next to the launch button. If this is set, press the green launch button to launch the application on the hololens.
 ## Starting the ROS server
 + Navigate to the catkin workspace of the ROS TCP Endpoint.
-+ Run the script 'devel/setub.bash'
-+ Set the environment variables for 'ROS_IP' and 'ROS_MASTER_URI'
-+ Run 'roslaunch ros_tcp_endpoint endpoint.launch' to launch the endpoint
++ Run the script devel/setup.bash
++ Set the environment variables for ROS_IP and ROS_MASTER_URI
++ Run 'roslaunch ros_tcp_endpoint endpoint.launch to launch the endpoint
 ## Remote Display of the Hololens View
 + To remotely display the view of the Hololens, enter the Hololens IP address in a browser
 + If a warning is shown, choose advanced, then continue despite risk

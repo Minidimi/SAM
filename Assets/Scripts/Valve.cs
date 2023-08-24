@@ -4,7 +4,10 @@ using UnityEngine;
 using RosMessageTypes.Geometry;
 using Unity.Robotics.ROSTCPConnector;
 
-
+/// <summary>
+/// This class receives the rotation of a valve around y. For performance reasons i expects a Point message from ROS and only uses
+/// the x-value to determine the angle.
+/// </summary>
 public class Valve : MonoBehaviour
 {
     [SerializeField] private string topic;
@@ -15,12 +18,6 @@ public class Valve : MonoBehaviour
     void Start()
     {
         ROSConnection.GetOrCreateInstance().Subscribe<PointMsg>(topic, receiveJointState);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void receiveJointState(PointMsg msg)

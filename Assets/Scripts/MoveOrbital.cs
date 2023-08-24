@@ -4,6 +4,10 @@ using Microsoft.MixedReality.Toolkit.Utilities.Solvers;
 using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 
+/// <summary>
+/// Class to disable the MRTK Orbital function of an object while it is manually manipulated. This allows the user to smoothly position an object
+/// even if it has an Orbital component. This is currently not in use since no objects use the Orbital functionality.
+/// </summary>
 [RequireComponent(typeof(Orbital))]
 public class MoveOrbital : MonoBehaviour
 {

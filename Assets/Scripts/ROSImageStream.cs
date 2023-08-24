@@ -7,6 +7,10 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 
+/// <summary>
+/// This class can be used to stream a video from ROS to Unity. This class expects Image messages from ROS and displays them as a mesh on an object.
+/// Here, this is specifically used on a plane to stream the video.
+/// </summary>
 public class ROSImageStream : MonoBehaviour
 {
     [SerializeField] public MeshRenderer meshRenderer;

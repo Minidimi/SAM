@@ -7,6 +7,11 @@ using RosMessageTypes.Geometry;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class receives joint rotation values from ROS. This is specifically used to receive the joint rotations for the KUKA arm. This class
+/// can be used for a robot with up to 7 joints. For performance reasons, it expects a Pose message from ROS. Here, the x-, y- and z-component
+/// of the position and the x-, y-, z- and w-component of the orientation are used for the joints in that order.
+/// </summary>
 public class ROSRotator : MonoBehaviour
 {
     
@@ -50,6 +55,7 @@ public class ROSRotator : MonoBehaviour
         {
             var obj = objects[i];
             var rot = rots[i] - currentRots[i];
+            //Converts values to radians if necessary
             if (useRadians)
             {
                 obj.transform.Rotate(0, (float) -rot * 57.296f, 0);

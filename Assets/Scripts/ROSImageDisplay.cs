@@ -6,6 +6,9 @@ using RosMessageTypes.Sensor;
 using UnityEngine.UI;
 using System.IO;
 
+/// <summary>
+/// Deprecated class for streaming a video from ROS. For this functionality, use ROSImageStream instead.
+/// </summary>
 public class ROSImageDisplay : MonoBehaviour
 {
     

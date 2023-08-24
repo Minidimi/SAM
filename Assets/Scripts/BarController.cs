@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Std;
 using UnityEngine;
-
+/// <summary>
+/// Deprecated class for controlling sliders.
+/// </summary>
 public class BarController : MonoBehaviour
 {
 

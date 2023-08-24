@@ -4,12 +4,18 @@ using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Geometry;
 
+/// <summary>
+/// This class controls the view of the scene. Depending on the mode, a specified position  and orientation can be specifiedfor the scene, the
+/// video stream and the sliders. This class expects a Point message from ROS where the x-value rounded to an integer specifies the chosen mode.
+/// </summary>
 public class ModeController : MonoBehaviour
 {
     [SerializeField] public string topic;
     [SerializeField] public GameObject target;
     [SerializeField] public GameObject video;
     [SerializeField] public GameObject stats;
+    //This can be used to hide specific gameObjects depending on the mode. This works in combination with show, which specifies for each mode
+    //whether the hideables should be shown
     [SerializeField] public GameObject[] hideable;
     [SerializeField] public Vector3[] eulerRotations;
     [SerializeField] public Vector3[] translations;
@@ -33,12 +39,12 @@ public class ModeController : MonoBehaviour
         initVideo = video.transform.position;
         initStats = stats.transform.position;
         ROSConnection.GetOrCreateInstance().Subscribe<PointMsg>(topic, receiveMode);
-        //receiveMode(new PointMsg(4, 0, 0));
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Allows for manual mode selection for testing. For this, choose the mode on the keyboard.
         if (Input.GetKeyDown("1"))
             receiveMode(new PointMsg(1, 0, 0));
         else if (Input.GetKeyDown("2"))
@@ -57,9 +63,6 @@ public class ModeController : MonoBehaviour
     {
         int mode = Mathf.RoundToInt((float) msg.x);
         var rot = eulerRotations[mode - 1];
-        //var dif = rot - currentRot;
-        //currentRot = rot;
-        //target.transform.Rotate(dif);
         target.transform.rotation = Quaternion.EulerAngles(currentRot + rot);
         target.transform.localPosition = initTranslation + translations[mode - 1];
         target.transform.localScale = initScale * scales[mode - 1];

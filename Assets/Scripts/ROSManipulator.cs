@@ -6,6 +6,9 @@ using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using RosMessageTypes.Geometry;
 
+/// <summary>
+/// This class receives a Pose from ROS and transforms a GameObject accordingly.
+/// </summary>
 public class ROSManipulator : MonoBehaviour
 {
     [SerializeField] private string topic = "";
@@ -20,25 +23,9 @@ public class ROSManipulator : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
-
     void receiveTransform(PoseMsg msg)
     {
-        //PointMsg translateMsg = msg.position;
-        //QuaternionMsg rotMsg = msg.orientation;
-        //transform.localPosition = new Vector3(-(float) translateMsg.y, (float) translateMsg.z, (float) translateMsg.x);
-        //transform.localRotation = new Quaternion((float) rotMsg.x, -(float) rotMsg.z, (float) rotMsg.y, (float) rotMsg.w);
-        //var quat = new Quaternion((float)rotMsg.x, (float)rotMsg.y, (float)rotMsg.z, (float)rotMsg.w);
-        //var euler = quat.eulerAngles;
+        //Convert the values to the Unity coordinate system since ROS uses a different one
         transform.localPosition = msg.position.From<FLU>();
         transform.localRotation = msg.orientation.From<FLU>();
         lastCmd = Time.time;

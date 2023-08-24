@@ -4,6 +4,10 @@ using RosMessageTypes.Geometry;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 
+/// <summary>
+/// This class decides how much the gripper should be opened or closed. In this case, the gripper can take rotations between 0 and 41 in Unity
+/// and between 48 and 230 in ROS. This class expects Point messages from ROS and uses the x-value to determine the angle of the gripper.
+/// </summary>
 public class Gripper : MonoBehaviour
 {
 
@@ -18,6 +22,7 @@ public class Gripper : MonoBehaviour
 
     private double _currentRot = 0;
     
+    //These objects specify the moving parts of the gripper
     [SerializeField] private GameObject rightInnerKnuckle;
     [SerializeField] private GameObject rightInnerFinger;
     [SerializeField] private GameObject rightOuterKnuckle;
@@ -33,6 +38,7 @@ public class Gripper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Allows for manual control of the gripper for testing
         if (Input.GetKeyDown("o"))
         {
             Control(230.0d);

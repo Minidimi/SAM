@@ -4,6 +4,10 @@ using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Geometry;
 using UnityEngine;
 
+/// <summary>
+/// This class controls the crawler robot. The scene uses two crawler models, one if it is connected to the cage and another if it is moving.
+/// Here, the moving crawler is activated when a position is first received.
+/// </summary>
 public class Crawler : MonoBehaviour
 {
     [SerializeField] public string topic;

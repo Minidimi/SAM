@@ -5,6 +5,13 @@ using RosMessageTypes.Geometry;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.UI;
 
+/// <summary>
+/// This class offers the behaviour to display the percentages in the sliders of the Unity scene. This class expects to receive Point 
+/// messages from ROS on three different topics: One topic for the Authority, one for the Confidence and the last topic for the Teleoperation.
+/// Of these messages, only the value x is used, the y- and z-value are discarded. This is chosen for performance reasons since the current
+/// implementation of the Unity Robotics Hub does not seem to efficiently support simple float messages. The x-values are expected to be in
+/// the range between 0 and 1.
+/// </summary>
 public class ProgressIndicatorRos : MonoBehaviour
 {
     [SerializeField] private GameObject authorityObj;
@@ -15,6 +22,7 @@ public class ProgressIndicatorRos : MonoBehaviour
     [SerializeField] public string teleoperationTopic;
     [SerializeField] public GameObject[] transparencyObjs;
 
+    //This class uses MRTK progress bars to represent the sliders
     private ProgressIndicatorLoadingBar authorityBar;
     private ProgressIndicatorLoadingBar confidenceBar;
     private ProgressIndicatorLoadingBar teleoperationBar;
@@ -28,20 +36,10 @@ public class ProgressIndicatorRos : MonoBehaviour
         ROSConnection.GetOrCreateInstance().Subscribe<PointMsg>(authorityTopic, ReceiveAuthority);
         ROSConnection.GetOrCreateInstance().Subscribe<PointMsg>(confidenceTopic, ReceiveConfidence);
         ROSConnection.GetOrCreateInstance().Subscribe<PointMsg>(teleoperationTopic, ReceiveTeleoperation);
+        //Necessary to use the MRTK progress bars
         authorityBar.OpenAsync();
         confidenceBar.OpenAsync();
         teleoperationBar.OpenAsync();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void FixedUpdate()
-    {
-        
     }
 
     private void ReceiveAuthority(PointMsg msg)
@@ -49,6 +47,7 @@ public class ProgressIndicatorRos : MonoBehaviour
         var authorityValue = (float)msg.x;
         authorityBar.Progress = authorityValue;
 
+        //The received authority values also affect the transparency of the objects specified in transparencyObjs
         foreach (var obj in transparencyObjs)
         {
             var mat = obj.GetComponent<MeshRenderer>().material;

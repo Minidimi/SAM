@@ -7,7 +7,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Robotics.ROSTCPConnector;
 
-
+/// <summary>
+/// Deprecated class for controlling a confidence slider.
+/// </summary>
 public class ConfidenceBar : MonoBehaviour
 {
     [SerializeField] private string topic;

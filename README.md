@@ -22,6 +22,7 @@ To deploy the application on the hololens follow these steps:
 ## Starting the Hololens
 + First, make sure the Hololens is in the same network as the ROS endpoint.
 + After the application has first been built as mentioned earlier, the application can be started from `all apps`, even if it is not connected to the development PC
++ To receive ROS messages, it is important that the ROS endpoint has the same IP address specified in the Unity project during the latest build.
 ## Remote Display of the Hololens View
 + To remotely display the view of the Hololens, enter the Hololens IP address in a browser
 + If a warning is shown, choose `advanced`, then `continue despite risk`
